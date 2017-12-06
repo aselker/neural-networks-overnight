@@ -1,8 +1,6 @@
 """
-These are reference implementations and tests for feedforward.py.
-Please try to solve the problems before looking here!
-
-
+These are tests for feedforward.py.
+They probably aren't very helpful for solving the problems.  If you want help, ask a Ninja!
 """
 
 from math import exp, log
@@ -57,10 +55,32 @@ else:
   print("Neuron class fail")
 
 
-def simpleNetwork_test():
-  return (ff.simpleNetwork() is not None) and (abs(fiveNeuronReferenceOutput - ff.simpleNetwork()) < epsilon)
+def simple_network_test():
+  return (ff.simple_network() is not None) and (abs(fiveNeuronReferenceOutput - ff.simple_network()) < epsilon)
 
-if simpleNetwork_test():
+if simple_network_test():
   print("Simple network pass")
 else:
   print("Simple network fail")
+
+
+def abcd_network_test():
+
+  # To test the network, we check whether the first output is what we expect.
+  if listToLetters(abcd_network(letterToList("a")))[0] != b:
+    return False 
+  if listToLetters(abcd_network(letterToList("b")))[0] != c:
+    return False
+  if listToLetters(abcd_network(letterToList("c")))[0] != d:
+    return False
+  if listToLetters(abcd_network(letterToList("d")))[0] != a:
+    return False
+
+  return True
+
+if abcd_network_test():
+  print("abcd network pass")
+else:
+  print("abcd network fail")
+
+

@@ -2,6 +2,8 @@
 These functions -- some pre-written, some fill-in-the-blanks -- should be almost all you need to write a simple neural network.
 It won't learn, though.  That's the next section.
 
+Functions you will write are in snake_case.  Given helper functions are in camelCase.
+
 A few useful tips:
   * print() everything that you're not sure about.
   * Make sure each function passes its tests before using it.
@@ -35,7 +37,7 @@ class Neuron:
 
 
 # This is the five-neuron network from Problems 2 and 4.  It should return the output neuron's activation.
-def simpleNetwork():
+def simple_network():
   pass
 
 
@@ -43,21 +45,23 @@ def simpleNetwork():
 
 letters = "abcdefghijklmnopqrstuvwxyz _"
 
+# Takes a single letter, outputs a list of 28 0's and 1's.
 def letterToList(x):
   index = letters.index(x)
-  return np.array([lowState]*index + [highState] + [lowState]*(len(letters)-index-1))
+  return np.array([0]*index + [0.5] + [0]*(len(letters)-index-1))
 
+# The other way: returns all of the letters, sorted by likelihood, given a list of 28 numbers.
 def listToLetters(xs):
   tuples = [ i for i in list(zip(xs,letters)) ]
   tuples = sorted(tuples, key=lambda x: (-x[0],x[1])) #Sort reverse by first value, forward by second
   return [x[1] for x in tuples] #Return just the letters
 
-def printLetterWeights(xs, removeZeros = False):
-  tuples = [i for i in list(zip(xs,letters)) if (i[0] > 0.01 or not removeZeros)] #Remove the ~zeroes
-  tuples = sorted(tuples, key=lambda x: (-x[0],x[1])) #Sort reverse by first value, forward by second
-  for i in tuples:
-    if len(str(i[0])) > 5:
-      print(str(i[0])[0:6] + ":\t" + str(i[1])) #Limit digits
-    else:
-      print(str(i[0]) + ":\t" + str(i[1])) #All the digits
 
+# These weights are a list of lists.  Sub-list number N contains the weight of every connection leading into output 
+#   neuron N, and withing that sub-list, weight number M comes from input neuron M.
+from weights import abcdWeights
+
+# This function should take a single character of input, in the form of 28 numbers, and should output the next
+#   character in the series "abcdabcd...".  You don't have to worry about any other input.
+def abcd_network(inputs):
+  pass
