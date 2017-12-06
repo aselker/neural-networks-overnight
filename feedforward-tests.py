@@ -1,6 +1,7 @@
 """
 These are tests for feedforward.py.
 They probably aren't very helpful for solving the problems.  If you want help, ask a Ninja!
+However, feel free to modify these, such as if you'd like to change how a function's arguments are arranged.
 """
 
 from math import exp, log
