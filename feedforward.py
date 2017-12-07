@@ -59,7 +59,20 @@ def listToLetters(xs):
 
 # These weights are a list of lists.  Sub-list number N contains the weight of every connection leading into output 
 #   neuron N, and withing that sub-list, weight number M comes from input neuron M.
-from weights import abcdWeights
+from random import random
+
+def genAbcdWeights():
+  # Most of the weights are zero.
+  abcdWeights = [ [0 for _ in range(len(letters)) ] for _ in range(len(letters)) ]
+
+  weight = 0.5493 # This is the inverse tanh of 0.5
+  abcdWeights[0][3] = weight
+  abcdWeights[1][0] = weight
+  abcdWeights[2][1] = weight
+  abcdWeights[3][2] = weight
+
+abcdWeights = genAbcdWeights()
+
 
 # This function should take a single character of input, in the form of 28 numbers, and should output the next
 #   character in the series "abcdabcd...".  You don't have to worry about any other input.
