@@ -13,6 +13,7 @@ A few useful tips:
 """
 
 from math import exp, log # These are e^x and ln(x), respectively
+from random import random # For randomly-initialized weights
 
 def tanh(x):
   pass
@@ -57,21 +58,19 @@ def listToLetters(xs):
   return [x[1] for x in tuples] #Return just the letters
 
 
+
 # These weights are a list of lists.  Sub-list number N contains the weight of every connection leading into output 
 #   neuron N, and withing that sub-list, weight number M comes from input neuron M.
-from random import random
 
-def genAbcdWeights():
-  # Most of the weights are zero.
-  abcdWeights = [ [0 for _ in range(len(letters)) ] for _ in range(len(letters)) ]
+# Most of the weights are zero.
+abcdWeights = [ [0 for _ in range(len(letters)) ] for _ in range(len(letters)) ]
 
-  weight = 0.5493 # This is the inverse tanh of 0.5
-  abcdWeights[0][3] = weight
-  abcdWeights[1][0] = weight
-  abcdWeights[2][1] = weight
-  abcdWeights[3][2] = weight
+weight = 0.5493 # This is the inverse tanh of 0.5
+abcdWeights[0][3] = weight
+abcdWeights[1][0] = weight
+abcdWeights[2][1] = weight
+abcdWeights[3][2] = weight
 
-abcdWeights = genAbcdWeights()
 
 
 # This function should take a single character of input, in the form of 28 numbers, and should output the next
@@ -89,9 +88,49 @@ def tanh_deriv(x):
 #   should both adjust this neuron's weight, and either save or return the values which we'll need to continue backpropagating
 #   back from this neuron.
 # Note that there *is no test* for this function, because there are a few design choices you get to make.  To see if it works,
-#   use the training function below.
+#   you can use the partially-built run-and-train function below.
 def backprop(self, outputDeriv, learnRate):
   pass
 
 # Adds the method to the class
 Neuron.backprop = backprop
+
+
+# This takes the actual and desired output of a particular output neuron, and gives you the derivative of the error w/rt the output neuron.
+def errorDeriv(actualOutput, desiredOutput):
+  return actualOutput - desiredOutput
+
+
+# This turns a long string into a list of pairs of (letter, next letter).  These can be used to train your network.
+def textToTrainingPairs(text):
+  return [ letterToList(text[i]), letterToList(text[i+n])) for i in range(len(text) - 1) ]
+
+# This takes a list of guesses and returns all the letters, sorted by guessed probability.
+def listToLetters(xs):
+  tuples = [ i for i in list(zip(xs,letters)) ]
+  tuples = sorted(tuples, key=lambda x: (-x[0],x[1])) #Sort reverse by first value, forward by second
+  return [x[1] for x in tuples] #Return just the letters
+
+# Same as above, but just returns the first letter (highest probability).
+def listToFirstLetter(xs):
+  tuples = [ i for i in list(zip(xs,letters)) ]
+  return max(tuples)[1]
+
+# Prints output in a nice way.
+def printGuesses(desiredOutput, actualOutput):
+  print("Desired output:  " + str(listToFirstLetter(desiredOutput)))
+  print("Guesses:  " + str(listToLetters(actualOutput)))
+  letterPos = listToLetters(actualOutput).index(listToFirstLetter(desiredOutput))
+  print("Letter position: " + str(letterPos) + (' ' if letterPos>9 else '  ') + '#'*letterPos)
+
+def run_and_train():
+  with open('moby_dick.txt') as f: #That file has the first 10,000 characters of a cleaned version of Moby-Dick in it.
+    text = f.read()
+
+  # At each step, you should:
+  #   * Give the network input
+  #   * Run it forwards
+  #   * Calculate and display the error
+  #   * Backpropagate and update weights
+  for (letterIn, letterOut) in textToTrainingPairs(text):
+    pass
