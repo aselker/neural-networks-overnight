@@ -5,7 +5,7 @@ However, feel free to modify these, such as if you'd like to change how a functi
 """
 
 from math import exp, log
-import feedforward as ff
+import nn
 
 
 def tanh(x):
@@ -18,7 +18,7 @@ epsilon = 0.0001
 def tanh_test():
   for i in [-1, 0, 1, 2]: # Try four cases
     # If the function hasn't been implemented yet, or if the implementations differ, return false.
-    if (ff.tanh(i) is None) or (abs(tanh(i) - ff.tanh(i)) > epsilon):
+    if (nn.tanh(i) is None) or (abs(tanh(i) - nn.tanh(i)) > epsilon):
       return False
 
   # Otherwise return true.
@@ -33,11 +33,11 @@ else:
 fiveNeuronReferenceOutput = tanh( tanh(0.5*1 + 1*0.5) * 2 + tanh(0.5*0.5 + 1*2) * 1 )
 
 def neuron_test():
-  input_1 = ff.Neuron(None, None)
-  input_2 = ff.Neuron(None, None)
-  hidden_1 = ff.Neuron([input_1, input_2], [1, 0.5])
-  hidden_2 = ff.Neuron([input_1, input_2], [0.5, 2])
-  output_1 = ff.Neuron([hidden_1, hidden_2], [2, 1])
+  input_1 = nn.Neuron(None, None)
+  input_2 = nn.Neuron(None, None)
+  hidden_1 = nn.Neuron([input_1, input_2], [1, 0.5])
+  hidden_2 = nn.Neuron([input_1, input_2], [0.5, 2])
+  output_1 = nn.Neuron([hidden_1, hidden_2], [2, 1])
 
   input_1.activation = 0.5
   input_2.activation = 1
@@ -57,7 +57,7 @@ else:
 
 
 def simple_network_test():
-  return (ff.simple_network() is not None) and (abs(fiveNeuronReferenceOutput - ff.simple_network()) < epsilon)
+  return (nn.simple_network() is not None) and (abs(fiveNeuronReferenceOutput - nn.simple_network()) < epsilon)
 
 if simple_network_test():
   print("Simple network pass")

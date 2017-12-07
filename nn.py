@@ -1,6 +1,7 @@
 """
-These functions -- some pre-written, some fill-in-the-blanks -- should be almost all you need to write a simple neural network.
-It won't learn, though.  That's the next section.
+These functions -- some pre-written, some fill-in-the-blanks -- should be almost all you need to write and train a simple neural network.
+This is supposed to be used with the Neural Networks overnight from QEA.  You can find that here:
+  https://www.sharelatex.com/read/jtmjwbhqhjwb
 
 Functions you will write are in snake_case.  Given helper functions are in camelCase.
 
@@ -103,7 +104,7 @@ def errorDeriv(actualOutput, desiredOutput):
 
 # This turns a long string into a list of pairs of (letter, next letter).  These can be used to train your network.
 def textToTrainingPairs(text):
-  return [ letterToList(text[i]), letterToList(text[i+n])) for i in range(len(text) - 1) ]
+  return [ ( letterToList(text[i]), letterToList(text[i+n] )) for i in range(len(text) - 1) ]
 
 # This takes a list of guesses and returns all the letters, sorted by guessed probability.
 def listToLetters(xs):
