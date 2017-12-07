@@ -78,3 +78,20 @@ abcdWeights = genAbcdWeights()
 #   character in the series "abcdabcd...".  You don't have to worry about any other input.
 def abcd_network(inputs):
   pass
+
+
+# This is the derivative of tanh(x) with regard to x
+def tanh_deriv(x):
+  pass
+
+
+# outputDerivs contains the derivative of the whole network's error, with regard to this neuron's output.  This function
+#   should both adjust this neuron's weight, and either save or return the values which we'll need to continue backpropagating
+#   back from this neuron.
+# Note that there *is no test* for this function, because there are a few design choices you get to make.  To see if it works,
+#   use the training function below.
+def backprop(self, outputDeriv, learnRate):
+  pass
+
+# Adds the method to the class
+Neuron.backprop = backprop
